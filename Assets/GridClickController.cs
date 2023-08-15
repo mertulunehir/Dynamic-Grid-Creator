@@ -8,6 +8,12 @@ public class GridClickController : MonoBehaviour
 
     public bool IsSelected { get; private set; }
 
+    private GridSpriteController spriteController;
+
+    private void Awake()
+    {
+        spriteController = GetComponent<GridSpriteController>();
+    }
     public void ResetGrid()
     {
         IsSelected = false;
@@ -18,11 +24,11 @@ public class GridClickController : MonoBehaviour
         IsSelected = !IsSelected;
         if(IsSelected)
         {
-            GetComponent<GridSpriteController>().OpenSelectedImage();
+            spriteController.OpenSelectedImage();
         }
         else
         {
-            GetComponent<GridSpriteController>().OpenSelectedImage();
+            spriteController.CloseSelectedImage();
         }
     }
 }

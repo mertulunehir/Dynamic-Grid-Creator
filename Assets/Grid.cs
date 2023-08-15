@@ -6,7 +6,20 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
     private GridClickController clickController;
-    private GridSpriteController spriteController;
+
+    private void Awake()
+    {
+        clickController = GetComponent<GridClickController>();
+    }
+
+    private void Start()
+    {
+        ResetGrid();
+    }
+    public void ResetGrid()
+    {
+
+    }
 
 
     public void OnGridSelect()
@@ -17,5 +30,10 @@ public class Grid : MonoBehaviour
     public bool IsSelected()
     {
         return clickController.IsSelected;
+    }
+
+    public void SetScale(float scaleMultiplier)
+    {
+        transform.localScale = Vector3.one* scaleMultiplier;
     }
 }

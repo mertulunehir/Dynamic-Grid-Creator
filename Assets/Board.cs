@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private BoardCreateController createController;
+
+    public void CreateBoard()
     {
-        
+        createController.CreateBoardButton();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        createController = GetComponent<BoardCreateController>();
     }
+
+    
 }

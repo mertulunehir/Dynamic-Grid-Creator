@@ -10,14 +10,15 @@ public class BoardCreateController : MonoBehaviour
 
 
     private const float startScale = 10;
-    private const int baseMainY = -5;
+
+    private float baseMainY = -5;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        baseMainY = -Camera.main.ViewportToWorldPoint(new Vector3(1.0f, 0f, 0f)).x;
     }
 
     // Update is called once per frame
@@ -29,20 +30,11 @@ public class BoardCreateController : MonoBehaviour
 
     public void CreateBoardButton()
     {
-
-        Debug.Log(currentInputField.text);
-        float currentScreenWidth = Screen.width;
-        float currentScreenHeight = Screen.height;
-        float widthHeightRatio = currentScreenWidth / currentScreenHeight;
-
-        Debug.Log(widthHeightRatio);
-
-
         float currentInput = int.Parse(currentInputField.text);
+
         if (currentInput >= 2)
         {
-            float currentScale = (startScale*2*widthHeightRatio) / currentInput;
-
+            float currentScale = (Mathf.Abs(baseMainY) * 2) / currentInput;
             float startPosValue = baseMainY + currentScale / 2;
 
             for (int y = 0; y < currentInput; y++)
@@ -53,7 +45,7 @@ public class BoardCreateController : MonoBehaviour
                     GameObject grid = Instantiate(gridPrefab.gameObject, spawnPos, gridPrefab.transform.rotation);
                     grid.GetComponent<Grid>().SetScale(currentScale);
                 }
-                
+
 
             }
 
@@ -62,5 +54,5 @@ public class BoardCreateController : MonoBehaviour
 
     }
 
-    
+
 }

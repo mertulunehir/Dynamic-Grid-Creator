@@ -1,30 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class BoardMatchController : MonoBehaviour
 {
-    public static BoardMatchController Instance;
 
     private Grid[,] Grids;
 
     private List<Grid> visitedCells = new List<Grid>();
     private int currentConnectedCount;
-    private void Awake()
-    {
-        Instance = this;
+    private int input;
 
-    }
-
-
+    [Inject]private BoardCreateController createController;
 
     public void SetInputValue(int input)
     {
+        this.input = input;
         Grids = new Grid[input, input];
     }
 
 
-    public int input;
 
     public void AddGrid(int x, int y, Grid grid)
     {
@@ -53,8 +49,8 @@ public class BoardMatchController : MonoBehaviour
                     Debug.Log("2");
 
                     visitedCells.Add(Grids[x - 1, y]);
-                    AddConnectedGrids(x - 1, y);
                     currentConnectedCount++;
+                    AddConnectedGrids(x - 1, y);
                 }
             }
 
@@ -68,8 +64,8 @@ public class BoardMatchController : MonoBehaviour
                     Debug.Log("4");
 
                     visitedCells.Add(Grids[x + 1, y]);
-                    AddConnectedGrids(x + 1, y);
                     currentConnectedCount++;
+                    AddConnectedGrids(x + 1, y);
                 }
 
             }
@@ -79,7 +75,7 @@ public class BoardMatchController : MonoBehaviour
             {
                 Debug.Log("5");
 
-                if (Grids[x, y - 1].IsSelected() && !visitedCells.Contains(Grids[x , y-1]))
+                if (Grids[x, y - 1].IsSelected() && !visitedCells.Contains(Grids[x, y - 1]))
                 {
                     Debug.Log("6");
 
@@ -89,12 +85,12 @@ public class BoardMatchController : MonoBehaviour
                 }
             }
 
-        if (y + 1 < input)
+        if (y + 1 <input)
             if (Grids[x, y + 1] != null)
             {
                 Debug.Log("7");
 
-                if (Grids[x, y + 1].IsSelected() && !visitedCells.Contains(Grids[x , y+1]))
+                if (Grids[x, y + 1].IsSelected() && !visitedCells.Contains(Grids[x, y + 1]))
                 {
                     Debug.Log("8");
 
@@ -104,9 +100,9 @@ public class BoardMatchController : MonoBehaviour
                 }
             }
 
-        if(currentConnectedCount>=3)
+        if (currentConnectedCount >= 3)
         {
-            BoardCreateController.Instance.ResetGrids();
+            createController.ResetGrids();
         }
     }
 

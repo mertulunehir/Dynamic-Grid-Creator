@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Zenject;
+
 public class BoardCreateController : MonoBehaviour
 {
-    public static BoardCreateController Instance;
+
     public Grid gridPrefab;
     public TMP_InputField currentInputField;
 
@@ -14,10 +16,7 @@ public class BoardCreateController : MonoBehaviour
     private List<Grid> activeGrids = new List<Grid>();
     private float baseMainY = -5;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+    [Inject] private DiContainer diContainer;
 
     // Start is called before the first frame update
     void Start()
@@ -38,26 +37,39 @@ public class BoardCreateController : MonoBehaviour
 
         if (currentInput >= 2)
         {
+            if(activeGrids.Count>0)
+            {
+                foreach(Grid grid in activeGrids)
+                {
+                    Destroy(grid.gameObject);
+                }
+                activeGrids.Clear();
+            }
+
             GetComponent<BoardMatchController>().SetInputValue((int)currentInput);
-            GetComponent<BoardMatchController>().input = (int)currentInput;
             float currentScale = (Mathf.Abs(baseMainY) * 2) / currentInput;
             float startPosValue = baseMainY + currentScale / 2;
-            int currentID = 0;
             for (int y = 0; y < currentInput; y++)
             {
                 for (int x = 0; x < currentInput; x++)
                 {
                     Vector3 spawnPos = new Vector3(startPosValue + x * currentScale, startPosValue + y * currentScale, 0);
-                    GameObject grid = Instantiate(gridPrefab.gameObject, spawnPos, gridPrefab.transform.rotation);
+
+                    Grid grid = diContainer.InstantiatePrefabForComponent<Grid>(gridPrefab);
+
+                    grid.transform.position = spawnPos;
                     grid.GetComponent<Grid>().SetScale(currentScale);
                     grid.GetComponent<Grid>().SetGridPosition(x,y);
                     activeGrids.Add(grid.GetComponent<Grid>());
 
                     GetComponent<BoardMatchController>().AddGrid(x,y, grid.GetComponent<Grid>());
-                    currentID++;
                 }
 
             }
+
+        }
+        else
+        {
 
         }
 

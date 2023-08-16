@@ -189,7 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4281371514944429c7163987e61682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: 0
 --- !u!114 &344597942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1427,6 +1426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matchController: {fileID: 344597941}
+  createController: {fileID: 344597942}
 --- !u!1 &2121764153
 GameObject:
   m_ObjectHideFlags: 0

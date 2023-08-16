@@ -13,6 +13,8 @@ public class GridClickController : MonoBehaviour
     private GridSpriteController spriteController;
     private bool canClickGrid;
 
+    [Inject] private BoardMatchController matchController;
+
 
     private void Awake()
     {
@@ -46,7 +48,7 @@ public class GridClickController : MonoBehaviour
             IsSelected = !IsSelected;
             if (IsSelected)
             {
-                BoardMatchController.Instance.CheckForMatch(X, Y);
+                matchController.CheckForMatch(X, Y);
                 spriteController.OpenSelectedImage();
             }
             else

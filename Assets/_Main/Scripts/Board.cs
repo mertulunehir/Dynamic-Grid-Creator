@@ -6,15 +6,17 @@ public class Board : MonoBehaviour
 {
     private BoardCreateController createController;
 
-    public void CreateBoard()
-    {
-        createController.CreateBoardButton();
-    }
+
 
     private void Awake()
     {
         createController = GetComponent<BoardCreateController>();
     }
 
+    //button event
+    public void CreateBoard()
+    {
+        createController.CreateBoardButton();
+    }
     
 }

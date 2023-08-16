@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Grid : MonoBehaviour
 {
     private GridClickController clickController;
@@ -18,13 +19,17 @@ public class Grid : MonoBehaviour
     }
     public void ResetGrid()
     {
-
+        GetComponent<GridClickController>().ResetGrid();
     }
-
+    public void SetGridPosition(int x, int y)
+    {
+        GetComponent<GridClickController>().SetGridPlace(x, y);
+    }
 
     public void OnGridSelect()
     {
-        clickController.OnGridSelect();
+        if (clickController.CanClickGrid)
+            clickController.OnGridSelect();
     }
 
     public bool IsSelected()
@@ -34,6 +39,6 @@ public class Grid : MonoBehaviour
 
     public void SetScale(float scaleMultiplier)
     {
-        transform.localScale = Vector3.one* scaleMultiplier;
+        transform.localScale = Vector3.one * scaleMultiplier;
     }
 }

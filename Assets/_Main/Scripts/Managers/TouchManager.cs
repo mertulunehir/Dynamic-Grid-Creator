@@ -28,9 +28,9 @@ public class TouchManager : MonoBehaviour
             raycastHit = Physics2D.Raycast(mainCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
             if (raycastHit.collider != null)
-                if (raycastHit.collider.GetComponent<Grid>() != null)
+                if (raycastHit.collider.TryGetComponent(out Grid grid))
                 {
-                    currentClickedGrid = raycastHit.collider.GetComponent<Grid>();
+                    currentClickedGrid = grid;
                     currentClickedGrid.OnGridSelect();
                 }
                 else

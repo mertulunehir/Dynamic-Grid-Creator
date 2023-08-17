@@ -19,17 +19,10 @@ public class BoardCreateController : MonoBehaviour
     [Inject] private DiContainer diContainer;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         baseMainY = -Camera.main.ViewportToWorldPoint(new Vector3(1.0f, 0f, 0f)).x;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
 
     public void CreateBoardButton()
     {
@@ -68,12 +61,6 @@ public class BoardCreateController : MonoBehaviour
             }
 
         }
-        else
-        {
-
-        }
-
-
     }
 
     public void ResetGrids()
